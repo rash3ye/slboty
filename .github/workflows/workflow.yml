@@ -28,8 +28,6 @@ jobs:
         run: yarn install
       - run: yarn build
         env:
-          # NODE_AUTH_TOKEN: ${{ secrets.YARN_TOKEN }}
-          FIREBASE_CLIENT_EMAIL: firebase-adminsdk-prh5r@am.gserviceaccount.com
           PORT: 3000
           DB_HOST: ${{ secrets.DB_HOST }}
           NODE_ENV: dev
