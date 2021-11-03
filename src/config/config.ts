@@ -25,19 +25,16 @@ const ENV = {
 const EVENTS = "test";
 
 export default {
-  APP: getEnv('APP') || 'development',
-  PORT: getEnv('PORT') || '3000',
+  APP: getEnv('NODE_ENV') || 'development',
+  PORT: getEnv('PORT', true) || '3000',
   ENV,
   EVENTS,
-  DB_DIALECT: getEnv('DB_DIALECT') || 'mongo',
+  DB_DIALECT: getEnv('DB_DIALECT', true) || 'mongo',
   DB_HOST: getEnv('DB_HOST') || 'mongodb://localhost:27017/example_db',
-  DB_NAME: getEnv('DB_NAME') || 'example_db',
-  DB_PASSWORD: getEnv('DB_PASSWORD') || 'db-password',
-  DB_PORT: getEnv('DB_PORT') || '27017',
-  DB_USER: getEnv('DB_USER') || 'root',
+  // DB_NAME: getEnv('DB_NAME') || 'example_db',
+  // DB_PASSWORD: getEnv('DB_PASSWORD') || 'db-password',
+  // DB_PORT: getEnv('DB_PORT') || '27017',
+  // DB_USER: getEnv('DB_USER') || 'root',
   SLACK_SIGNING_SECRET: getEnv("SLACK_SIGNING_SECRET") || "",
   SLACK_BOT_TOKEN: getEnv("SLACK_BOT_TOKEN") || "",
-  JWT_ENCRYPTION: getEnv('JWT_ENCRYPTION') || 'jwt_please_change',
-  JWT_EXPIRATION: getEnv('JWT_EXPIRATION') || '1h',
-  SALT_ROUNDS: getEnv('SALT_ROUNDS') || 10
 };

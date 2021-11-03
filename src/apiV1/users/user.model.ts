@@ -27,7 +27,6 @@ const UserSchema = new Schema<UserDocument, mongoose.Model<UserDocument>>(
   },
   {
     timestamps: true,
-    useNestedStrict: true
   }
 );
 

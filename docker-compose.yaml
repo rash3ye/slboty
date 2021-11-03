@@ -1,14 +1,40 @@
-version: "3"
+version: "3.7"
 services:
   mongo:
-    image: 'mongo'
+    image: 'mongo:4.2'
     ports:
       - '27017:27017'
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_DATABASE=auth
+      - MONGO_INITDB_ROOT_PASSWORD=pass
+    networks: 
+      - mongo-compose-network
+    volumes:
+      - 'mongo:/data/db'
+  
+  mongo-express:
+    container_name: mongo-express
+    image: mongo-express
+    depends_on:
+      - db
+    networks: 
+      - mongo-compose-network
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=mongo-dev
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=admin
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=pass
+      - ME_CONFIG_BASICAUTH_USERNAME=admin
+      - ME_CONFIG_BASICAUTH_PASSWORD=tribes
+    ports:
+      - '8081:8081'
+    volumes: 
+      - 'mongo:/data/db'     
+
   app:
     build:
       context: .
       dockerfile: ./Dockerfile
-    image: registry.digitalocean.com/conquext/slbot:${CONQUEXT_BRANCH:-latest}
     restart: on-failure
     ports:
       - "3000:3000"
@@ -16,7 +42,14 @@ services:
       - "3000"
     volumes:
       - .:/usr/src/app/
+      - ./logs:/logs
     working_dir: /usr/src/app
+    environment: 
+      PORT: 3000
+      DB_HOST: mongodb://mongo:27017/example_db
+      NODE_ENV: production
+      SLACK_SIGNING_SECRET: 989898
+      SLACK_BOT_TOKEN: 54545454
     env_file:
       - .env
     networks:
@@ -37,4 +70,9 @@ services:
   #     - "9092:9092"
 
 networks:
+  mongo-compose-network:
+    driver: bridge
   backend:
+
+volumes:
+  mongo:
