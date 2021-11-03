@@ -4,13 +4,15 @@ import CONFIG from './config';
 
 mongoose.Promise = global.Promise;
 
-mongoose.set('useCreateIndex', true);
-
 export const connect = async () => {
   try {
     await mongoose.connect(
       CONFIG.DB_HOST,
-      { useNewUrlParser: true }
+      { 
+        socketTimeoutMS: 45000,
+        family: 4,
+        retryWrites: false,
+       }
     );
 
     const db = mongoose.connection;

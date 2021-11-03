@@ -39,7 +39,7 @@
         "jwt-then": "^1.0.1",
         "module-alias": "^2.2.2",
         "moment": "^2.29.1",
-        "mongoose": "^5.2.15",
+        "mongoose": "^6.0.12",
         "reflect-metadata": "^0.1.13",
         "ts-jest": "^27.0.7",
         "tsconfig-paths": "^3.11.0",
