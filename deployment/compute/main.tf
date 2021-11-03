@@ -89,7 +89,7 @@ resource "aws_autoscaling_group" "web" {
   health_check_grace_period = 300
   default_cooldown          = 300
   health_check_type         = "ELB"
-  desired_capacity          = 1
+  desired_capacity          = 2
   force_delete              = true
   launch_configuration      = aws_launch_configuration.web.name
   vpc_zone_identifier       = var.private_subnets
