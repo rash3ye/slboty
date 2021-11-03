@@ -1,0 +1,35 @@
+2021-11-03 11:46:12 info: "C:\\Users\\arash\\OneDrive\\Documents\\Dev\\DevInDoc\\Seren\\rest-api-node-ts-boilerplate\\src\\helpers/../../logs"
+2021-11-03 11:46:12 info: {
+  "events": [
+    "test"
+  ]
+}
+2021-11-03 11:46:13 info: "Requiring Event: ./events/test"
+2021-11-03 11:54:09 info: "C:\\Users\\arash\\OneDrive\\Documents\\Dev\\DevInDoc\\Seren\\rest-api-node-ts-boilerplate\\src\\helpers/../../logs"
+2021-11-03 11:54:09 info: {
+  "events": [
+    "test"
+  ]
+}
+2021-11-03 11:54:09 info: "Requiring Event: ./events/test"
+2021-11-03 11:58:00 info: "C:\\Users\\arash\\OneDrive\\Documents\\Dev\\DevInDoc\\Seren\\rest-api-node-ts-boilerplate\\src\\helpers/../../logs"
+2021-11-03 11:58:00 info: {
+  "events": [
+    "test"
+  ]
+}
+2021-11-03 11:58:00 info: "Requiring Event: ./events/test"
+2021-11-03 12:02:08 info: "C:\\Users\\arash\\OneDrive\\Documents\\Dev\\DevInDoc\\Seren\\rest-api-node-ts-boilerplate\\src\\helpers/../../logs"
+2021-11-03 12:02:08 info: {
+  "events": [
+    "test"
+  ]
+}
+2021-11-03 12:02:08 info: "Requiring Event: ./events/test"
+2021-11-03 12:08:16 info: "C:\\Users\\arash\\OneDrive\\Documents\\Dev\\DevInDoc\\Seren\\rest-api-node-ts-boilerplate\\src\\helpers/../../logs"
+2021-11-03 12:08:16 info: {
+  "events": [
+    "test"
+  ]
+}
+2021-11-03 12:08:16 info: "Requiring Event: ./events/test"
