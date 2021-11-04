@@ -2,4 +2,14 @@
 cd /home/ec2-user/app
 ls
 pwd
+docker -v
+docker-compose -v
+
+sudo service docker start
+
+if [ "$DEPLOYMENT_GROUP_NAME" == "Staging" ]
+then
+    sed -i -e 's/Listen 80/Listen 9090/g' /etc/httpd/conf/httpd.conf
+fi
+
 docker-compose -f docker-compose.yaml up
