@@ -2,4 +2,4 @@
 cd /home/ec2-user/app
 ls
 pwd
-docker-compose -f docker-compose.yml up
+docker-compose -f docker-compose.yaml up
