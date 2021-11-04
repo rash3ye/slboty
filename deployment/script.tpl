@@ -4,14 +4,16 @@ yum update -y
 yum install git wget ruby -y
 yum install -y yum-utils device-mapper-persistent-data lvm2
 yum-config-manager — add-repo https://download.docker.com/linux/centos/docker-ce.repo
-yum install docker
-yum install docker-compose
+yum install docker -y
+yum install docker-compose -y
 
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
 . ~/.nvm/nvm.sh
 nvm install node
 
-wget https://aws-codedeploy-ap-southeast-1.s3.ap-southeast-1.amazonaws.com/latest/install
+# wget https://aws-codedeploy-ap-southeast-1.s3.ap-southeast-1.amazonaws.com/latest/install
+wget https://aws-codedeploy-us-east-1.s3.ap-southeast-1.amazonaws.com/latest/install
+
 chmod +x ./install
 ./install auto
 service codedeploy-agent start
