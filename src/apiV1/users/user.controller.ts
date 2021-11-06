@@ -2,6 +2,28 @@ import { Request, Response } from 'express';
 import User from './user.model';
 
 export default class UserController {
+  public create = async (req: Request, res: Response): Promise<any> => {
+    try {
+      const user = await new User();
+      user.name = req.body.name || "";
+      user.lastName = req.body.lastName || "";
+      user.email = req.body.email || "";
+      user.password = req.body.password || "";
+      user.save()
+
+      res.status(200).send({
+        success: true,
+        data: user
+      });
+    } catch (err: any) {
+      res.status(500).send({
+        success: false,
+        message: err.toString(),
+        data: null
+      });
+    }
+  };
+  
   public findAll = async (_req: Request, res: Response): Promise<any> => {
     try {
       const users = await User.find();

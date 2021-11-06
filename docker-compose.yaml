@@ -1,43 +1,13 @@
 version: "3.7"
 services:
-  mongo:
-    image: 'mongo:4.2'
-    ports:
-      - '27017:27017'
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=admin
-      - MONGO_INITDB_DATABASE=auth
-      - MONGO_INITDB_ROOT_PASSWORD=pass
-    networks: 
-      - mongo-compose-network
-    volumes:
-      - 'mongo:/data/db'
-  
-  mongo-express:
-    container_name: mongo-express
-    image: mongo-express
-    depends_on:
-      - mongo
-    networks: 
-      - mongo-compose-network
-    environment:
-      - ME_CONFIG_MONGODB_SERVER=mongo-dev
-      - ME_CONFIG_MONGODB_ADMINUSERNAME=admin
-      - ME_CONFIG_MONGODB_ADMINPASSWORD=pass
-      - ME_CONFIG_BASICAUTH_USERNAME=admin
-      - ME_CONFIG_BASICAUTH_PASSWORD=tribes
-    ports:
-      - '8081:8081'
-    volumes: 
-      - 'mongo:/data/db'     
-
   app:
+    container_name: slboty
     build:
       context: .
       dockerfile: ./Dockerfile
-    restart: on-failure
+    # restart: always
     ports:
-      - "3000:3000"
+      - "8700:3000"
     expose:
       - "3000"
     volumes:
@@ -46,18 +16,62 @@ services:
     working_dir: /usr/src/app
     environment: 
       PORT: 3000
-      DB_HOST: mongodb://mongo:27017/example_db
+      DB_HOST: mongodb://admin:pass@mongo:27017/example_db?authSource=admin
       NODE_ENV: production
-      SLACK_SIGNING_SECRET: 989898
+      SLACK_SIGNING_SECRET: ${SLACK_CIENT_SECRET?656565}
       SLACK_BOT_TOKEN: 54545454
     env_file:
       - .env
     networks:
       - backend
-  redis:
-    image: "redis"
+      - mongo-compose-network
+
+  mongo:
+    container_name: mongo
+    image: 'mongo:4.2'
     ports:
-      - "6379:6379"
+      - '27017:27017'
+    restart: on-failure
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_DATABASE=auth
+      - MONGO_INITDB_ROOT_PASSWORD=pass
+    networks: 
+      - mongo-compose-network
+      - backend
+    volumes:
+      - 'mongo:/data/db'
+  
+  mongo-express:
+    container_name: mongo-express
+    image: 'mongo-express'
+    depends_on:
+      - mongo
+    networks: 
+      - mongo-compose-network
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=mongo
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=admin
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=pass
+      - ME_CONFIG_BASICAUTH_USERNAME=admin
+      - ME_CONFIG_BASICAUTH_PASSWORD=${MONGOEXPRESS_PASS?Variable not set}
+    ports:
+      - '8081:8081'
+    restart: on-failure
+    volumes: 
+      - 'mongo:/data/db'     
+    env_file:
+      - .env
+
+  redis:
+    container_name: redis
+    image: "redis"
+    restart: on-failure
+    ports:
+      - "6378:6379"
+    networks: 
+      - backend
+
   # kafka:
   #   image: "landoop/fast-data-dev"
   #   environment:
