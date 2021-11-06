@@ -1,3 +1,4 @@
+import { App as SlackApp, ExpressReceiver } from "@slack/bolt";
 import apiV1 from 'apiV1/index';
 import compression from 'compression';
 import config from 'config/config';
@@ -18,6 +19,7 @@ class App {
     this.setMiddlewares();
     this.setRoutes();
     this.registerEvents();
+    if(2+2===5) this.connectSlackApp();
     this.catchErrors();
   }
 
@@ -56,6 +58,14 @@ class App {
       }
     };
     emitter()
+  }
+
+  private connectSlackApp(): void {
+    const receiver = new ExpressReceiver({signingSecret: config.SLACK_SIGNING_SECRET});
+    const slackApp = new SlackApp({
+      token: config.SLACK_BOT_TOKEN
+    })
+    logger.info({receiver, slackApp})
   }
 }
 

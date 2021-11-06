@@ -1,4 +1,5 @@
 import watchman from 'customEvents';
+import { logger } from 'helpers/logger';
 import mongoose from 'mongoose';
 import CONFIG from './config';
 
@@ -6,6 +7,7 @@ mongoose.Promise = global.Promise;
 
 export const connect = async () => {
   try {
+    logger.info({DBHOST: CONFIG.DB_HOST})
     await mongoose.connect(
       CONFIG.DB_HOST,
       { 
