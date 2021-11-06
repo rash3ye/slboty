@@ -15,6 +15,7 @@
         "build": "tsc",
         "serve": "node -r ./tsconfig-paths.js dist/index.js",
         "start": "npm run serve",
+        "bd": "npm run build && npm run start",
         "dev": "nodemon --exec ts-node -- ./src/index.ts",
         "prod": "npm run build && npm run start",
         "test": "env-cmd -f .env.test jest --config jest.config.ts --detectOpenHandles",

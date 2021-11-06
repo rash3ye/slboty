@@ -12,4 +12,4 @@ then
     sed -i -e 's/Listen 80/Listen 9090/g' /etc/httpd/conf/httpd.conf
 fi
 
-docker-compose -f docker-compose.yaml up
+docker-compose -f docker-compose.yaml up -d
