@@ -55,7 +55,7 @@ services:
       - ME_CONFIG_MONGODB_ADMINPASSWORD=pass
       - ME_CONFIG_BASICAUTH_USERNAME=admin
       # - ME_CONFIG_BASICAUTH_PASSWORD=${MONGOEXPRESS_PASS?Variable not set}
-      - ME_CONFIG_BASICAUTH_PASSWORD=$tribas
+      - ME_CONFIG_BASICAUTH_PASSWORD=tribas
     ports:
       - '8081:8081'
     restart: on-failure
@@ -72,6 +72,18 @@ services:
       - "6378:6379"
     networks: 
       - backend
+
+  # lb:
+  #   container_name: lb
+  #   image: 'jc21/nginx-proxy-manager:latest'
+  #   ports:
+  #     - '80:80'
+  #     - '81:81'
+  #     - '443:443'
+  #   volumes:
+  #     - ./config.json:/app/config.production.js
+  #     - ./data:/data
+  #     - ./letsencrypt:/etc/letsencrypt
 
   # kafka:
   #   image: "landoop/fast-data-dev"
