@@ -6,6 +6,9 @@ const user: Router = Router();
 const controller = new Controller();
 
 // Retrieve all Users
+user.post('/', controller.create);
+
+// Retrieve all Users
 user.get('/', controller.findAll);
 
 // Retrieve a Specific User
