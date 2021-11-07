@@ -33,7 +33,7 @@ export const connect = async () => {
       }),
     );
     // listen for requests
-    console.log('The Conection is Ok');
+    console.log('Database connected successfully');
     return db;
   } catch (err) {
     console.log(`${err} Could not Connect to the Database. Exiting Now...`);
