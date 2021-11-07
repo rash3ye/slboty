@@ -5,4 +5,6 @@ npm-debug.log
 .env
 logs
 *.tfvars
-deployment
+deployment/
+merge.sh
+data/
