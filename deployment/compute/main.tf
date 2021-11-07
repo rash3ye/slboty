@@ -67,6 +67,7 @@ resource "aws_launch_configuration" "web" {
   image_id        = var.ami
   instance_type   = var.instance_type
   key_name        = aws_key_pair.auth.id
+  associate_public_ip_address = true
   security_groups = [aws_security_group.instance_sg.id]
   user_data = templatefile(var.userdata, {
     env_name = var.env_name
@@ -105,6 +106,18 @@ resource "aws_autoscaling_group" "web" {
 
 }
 
+# data "aws_instances" "web" {
+#   instance_tags = {
+#     Role = join("_", [var.env_name, "Web_Server"])
+#   }
+
+  # filter {
+  #   name   = "instance.group-id"
+  #   values = ["sg-12345678"]
+  # }
+
+#   instance_state_names = ["running"]
+# }
 
 #---------------------------------ALB Target Group
 
@@ -113,6 +126,17 @@ resource "aws_lb_target_group" "web" {
   port     = 80
   protocol = "HTTP"
   vpc_id   = var.vpcid
+
+  health_check {
+    healthy_threshold = 3
+    unhealthy_threshold = 3
+    timeout = 10
+    protocol = "HTTP"
+    port = var.app_port
+    path = var.health_path
+    interval = 30
+    matcher = "200,399"
+  }
 }
 
 
@@ -220,8 +244,28 @@ resource "aws_security_group" "instance_sg" {
     from_port       = 80
     to_port         = 80
     protocol        = "tcp"
+    cidr_blocks     = ["0.0.0.0/0"]
     security_groups = [aws_security_group.alb_sg.id]
   }
+
+  ingress {
+    description = "HTTPS"
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+    security_groups = [aws_security_group.alb_sg.id]
+  }
+
+  ingress {
+    description = "SSH"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+    security_groups = [aws_security_group.alb_sg.id]
+  }
+
 
   egress {
     from_port   = 0

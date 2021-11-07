@@ -25,4 +25,5 @@ chown ec2-user /etc/authbind/byport/80
 git clone https://github.com/rash3ye/slboty.git /home/ec2-user/app
 chmod +x /home/ec2-user/app/scripts/*
 /home/ec2-user/app/scripts/install_app_dependencies
+/home/ec2-user/app/scripts/download_secrets
 /home/ec2-user/app/scripts/start_server

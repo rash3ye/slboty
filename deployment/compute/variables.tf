@@ -8,4 +8,6 @@ variable "instance_type" {}
 variable "public_key_path" {}
 variable "userdata" {}
 variable "env_name" {}
+variable "app_port" {}
+variable "health_path" {}
 variable "vpc_id" {}
